@@ -20,10 +20,12 @@ func loadDrives(file string) []byte {
 	if err != nil {
 		panic(err)
 	}
+
 	return data
 }
 
-func listDrivers(w http.ResponseWriter, r *http.Request) {
+//ListDrivers func to handler requests and expose the drivers list
+func ListDrivers(w http.ResponseWriter, r *http.Request) {
 	drivers := loadDrives("drivers.json")
 	w.Write([]byte(drivers))
 }
@@ -31,6 +33,6 @@ func listDrivers(w http.ResponseWriter, r *http.Request) {
 func main() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/drivers", listDrivers)
+	r.HandleFunc("/drivers", ListDrivers)
 	http.ListenAndServe(":8080", r)
 }
