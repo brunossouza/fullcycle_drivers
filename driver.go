@@ -8,18 +8,20 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func loadDrives(file string) []byte {
-	jsonFile, err := os.Open(file)
+func checkError(err error) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func loadDrives(file string) []byte {
+	jsonFile, err := os.Open(file)
+	checkError(err)
 
 	defer jsonFile.Close()
 
 	data, err := ioutil.ReadAll(jsonFile)
-	if err != nil {
-		panic(err)
-	}
+	checkError(err)
 
 	return data
 }
